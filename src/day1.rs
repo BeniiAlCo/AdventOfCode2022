@@ -5,7 +5,7 @@ pub fn run() {
 }
 
 // Each elf is carrying x calories worth of food
-// x is a number, or multiple numbers on different lines, seperated by an emply lines
+// x is a number, or the sum of multiple numbers on consequtive lines, seperated by an empty line
 
 // Puzzle 1:
 // How many calories are being carried by the elf carrying the most calories ?
