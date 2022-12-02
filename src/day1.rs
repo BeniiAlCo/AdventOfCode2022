@@ -1,8 +1,9 @@
 pub fn run() {
     let input = include_str!("input/day1.txt");
-    let processed_input = sum_groups(input);
-    println!("{}", puzzle_1(&processed_input));
-    println!("{}", puzzle_2(&processed_input));
+    let processed_input = &mut sum_groups(input);
+    processed_input.sort();
+    println!("{}", puzzle_1(processed_input));
+    println!("{}", puzzle_2(processed_input));
 }
 
 // Each elf is carrying x calories worth of food
@@ -11,10 +12,10 @@ pub fn run() {
 fn sum_groups(input: &str) -> Vec<u32> {
     input
         .split("\n\n")
-        .map(|group| {
-            group
+        .map(|elf| {
+            elf
                 .lines()
-                .map(|element| element.parse::<u32>().expect("Unexpected value -- either not a number, a floating point number, or a huge (>u32) number."))
+                .map(|food| food.parse::<u32>().expect("Unexpected value -- either not a number, a floating point number, or a huge (>u32) number."))
                 .sum()
         })
         .collect()
@@ -23,15 +24,13 @@ fn sum_groups(input: &str) -> Vec<u32> {
 // Puzzle 1:
 // How many calories are being carried by the elf carrying the most calories ?
 fn puzzle_1(input: &[u32]) -> u32 {
-    *input.iter().max().unwrap()
+    *input.iter().rev().next().unwrap()
 }
 
 //Puzzle 2:
 // How many calories are carried by the top three calorie-carrying elves ?
 fn puzzle_2(input: &[u32]) -> u32 {
-    let mut input = input.to_owned();
-    input.sort();
-    input.split_off(input.len() - 3).iter().sum()
+    input.iter().rev().take(3).sum()
 }
 
 #[cfg(test)]
@@ -50,11 +49,15 @@ mod tests {
 
     #[test]
     fn puzzle_1_on_test_input() {
-        assert_eq!(puzzle_1(&sum_groups(TEST_INPUT)), 24000);
+        let input = &mut sum_groups(TEST_INPUT);
+        input.sort();
+        assert_eq!(puzzle_1(input), 24000);
     }
 
     #[test]
     fn puzzle_2_on_test_input() {
-        assert_eq!(puzzle_2(&sum_groups(TEST_INPUT)), 45000);
+        let input = &mut sum_groups(TEST_INPUT);
+        input.sort();
+        assert_eq!(puzzle_2(input), 45000);
     }
 }
