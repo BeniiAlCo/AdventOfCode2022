@@ -7,7 +7,8 @@ pub fn run() {
 }
 
 // Each elf is carrying x calories worth of food
-// x is a number, or the sum of multiple numbers on consequtive lines, seperated by an empty line
+// x is a single number on a single line, or the sum of multiple numbers on consequtive lines.
+// Each x is seperated by an empty line.
 
 fn sum_groups(input: &str) -> Vec<u32> {
     input
@@ -15,7 +16,7 @@ fn sum_groups(input: &str) -> Vec<u32> {
         .map(|elf| {
             elf
                 .lines()
-                .map(|food| food.parse::<u32>().expect("Unexpected value -- either not a number, a floating point number, or a huge (>u32) number."))
+                .map(|food| dbg!(food).parse::<u32>().expect("Unexpected value -- either not a number, a floating point number, or a huge (>u32) number."))
                 .sum()
         })
         .collect()
