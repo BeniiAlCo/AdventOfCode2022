@@ -1,9 +1,9 @@
 pub fn run() {
     let input = include_str!("input/day1.txt");
-    let processed_input = &mut sum_groups(input);
-    processed_input.sort();
-    println!("{}", puzzle_1(processed_input));
-    println!("{}", puzzle_2(processed_input));
+    //let processed_input = &mut sum_groups(input);
+    //processed_input.sort();
+    println!("{}", puzzle_1(input));
+    println!("{}", puzzle_2(input));
 }
 
 // Each elf is carrying x calories worth of food
@@ -17,7 +17,7 @@ fn sum_groups(input: &str) -> Vec<u64> {
         .map(|elf| {
             elf
                 .lines()
-                .map(|food| dbg!(food).parse::<u64>().expect("Unexpected value -- either not a number, a floating point number, or a huge (>u64) number."))
+                .map(|food| food.parse::<u64>().expect("Unexpected value -- either not a number, a floating point number, or a huge (>u64) number."))
                 .sum()
         })
         .collect()
@@ -25,13 +25,15 @@ fn sum_groups(input: &str) -> Vec<u64> {
 
 // Puzzle 1:
 // How many calories are being carried by the elf carrying the most calories ?
-fn puzzle_1(input: &[u64]) -> u64 {
-    *input.iter().rev().next().unwrap()
+fn puzzle_1(input: &str) -> u64 {
+    sum_groups(input).iter().max().copied().unwrap()
 }
 
 //Puzzle 2:
 // How many calories are carried by the top three calorie-carrying elves ?
-fn puzzle_2(input: &[u64]) -> u64 {
+fn puzzle_2(input: &str) -> u64 {
+    let input = &mut sum_groups(input);
+    input.sort();
     input.iter().rev().take(3).sum()
 }
 
@@ -51,15 +53,11 @@ mod tests {
 
     #[test]
     fn day_1_puzzle_1() {
-        let input = &mut sum_groups(TEST_INPUT);
-        input.sort();
-        assert_eq!(puzzle_1(input), 24000);
+        assert_eq!(puzzle_1(TEST_INPUT), 24000);
     }
 
     #[test]
     fn day_1_puzzle_2() {
-        let input = &mut sum_groups(TEST_INPUT);
-        input.sort();
-        assert_eq!(puzzle_2(input), 45000);
+        assert_eq!(puzzle_2(TEST_INPUT), 45000);
     }
 }

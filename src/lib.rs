@@ -3,6 +3,7 @@ use std::ops::RangeInclusive;
 
 mod day1;
 mod day2;
+mod day3;
 
 pub struct Config {
     all_days: bool,
@@ -34,7 +35,7 @@ impl Config {
 
         Ok(Config {
             all_days: matches.get_flag("AllDays"),
-            specific_day: if !matches.args_present() {
+            specific_day: if !matches.contains_id("SpecificDay") {
                 *Self::DAY_RANGE.end()
             } else {
                 *matches.get_one::<usize>("SpecificDay").unwrap()
@@ -42,7 +43,7 @@ impl Config {
         })
     }
 
-    const DAY_RANGE: RangeInclusive<usize> = 1..=2;
+    const DAY_RANGE: RangeInclusive<usize> = 1..=3;
 
     fn days_in_range(s: &str) -> Result<usize, String> {
         let days: usize = s
@@ -63,6 +64,7 @@ impl Config {
         if self.all_days {
             day1::run();
             day2::run();
+            day3::run();
             Ok(())
         } else {
             match self.specific_day {
@@ -72,6 +74,10 @@ impl Config {
                 }
                 2 => {
                     day2::run();
+                    Ok(())
+                }
+                3 => {
+                    day3::run();
                     Ok(())
                 }
                 err => Err(Box::<dyn std::error::Error>::from(format!(
