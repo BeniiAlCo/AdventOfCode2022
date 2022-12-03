@@ -15,20 +15,20 @@ pub fn run() {
 // Winner has the highest total score -- sum of all round scores
 // Round score = shape (Rock = 1; Paper = 2; Scissors = 3) + outcome (loss = 0; draw = 3; win = 6)
 
-fn parse_input(input: &str, puzzle_map: fn((&str, &str)) -> u32) -> Vec<u32> {
+fn parse_input(input: &str, puzzle_map: fn((&str, &str)) -> u64) -> Vec<u64> {
     input
         .lines()
         .map(|round| round.split_once(' ').map(puzzle_map).unwrap())
         .collect()
 }
 
-const ROCK: u32 = 1;
-const PAPER: u32 = 2;
-const SCISSORS: u32 = 3;
+const ROCK: u64 = 1;
+const PAPER: u64 = 2;
+const SCISSORS: u64 = 3;
 
-const LOSE: u32 = 0;
-const DRAW: u32 = 3;
-const WIN: u32 = 6;
+const LOSE: u64 = 0;
+const DRAW: u64 = 3;
+const WIN: u64 = 6;
 
 // Puzzle 1:
 // OTHER is what we should play in response,
@@ -36,7 +36,7 @@ const WIN: u32 = 6;
 // Y = Paper
 // Z = Scissors
 
-fn puzzle_1_map(input: (&str, &str)) -> u32 {
+fn puzzle_1_map(input: (&str, &str)) -> u64 {
     match input {
         ("A", "X") => ROCK + DRAW,
         ("A", "Y") => PAPER + WIN,
@@ -52,7 +52,7 @@ fn puzzle_1_map(input: (&str, &str)) -> u32 {
 }
 
 // Calculate the score if we were to follow the strategy guide
-fn puzzle_1(input: &str) -> u32 {
+fn puzzle_1(input: &str) -> u64 {
     parse_input(input, puzzle_1_map).iter().sum()
 }
 
@@ -62,7 +62,7 @@ fn puzzle_1(input: &str) -> u32 {
 // Y = Draw
 // Z = Win
 
-fn puzzle_2_map(input: (&str, &str)) -> u32 {
+fn puzzle_2_map(input: (&str, &str)) -> u64 {
     match input {
         ("A", "X") => SCISSORS + LOSE,
         ("A", "Y") => ROCK + DRAW,
@@ -78,7 +78,7 @@ fn puzzle_2_map(input: (&str, &str)) -> u32 {
 }
 
 // Calculate the score if we follow this guide and chose the correct corresponding shape
-fn puzzle_2(input: &str) -> u32 {
+fn puzzle_2(input: &str) -> u64 {
     parse_input(input, puzzle_2_map).iter().sum()
 }
 
