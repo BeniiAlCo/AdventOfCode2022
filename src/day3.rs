@@ -5,30 +5,24 @@ pub fn run() {
 }
 
 // An elf loads rucksacks with supplies.
-// Those supplies need to be rearranged.
-//
-// A rucksack has two compartments.
-// Each item-kind goes into only one of the compartments.
-// As given, one item-kind per rucksack is incorrect.
 //
 // Input is a list of all items in each rucksack:
 // One letter per item (upper and lower case are distinct); one line per rucksack.
-// Compartment 1 = first half of the letters on a line,
-// Compartment 2 = second half of the letters on a line.
+//
+// a..=z have priority 1..=26
+// A..=Z have priority 27..=52
 
 fn ascii_to_number(input: char) -> u64 {
-    if input.is_ascii_uppercase() {
-        input as u64 - 38
-    } else if input.is_ascii_lowercase() {
-        input as u64 - 96
-    } else {
-        panic!("aa")
+    match input {
+        'a'..='z' => input as u64 - 96,
+        'A'..='Z' => input as u64 - 38,
+        _ => unreachable!(),
     }
 }
 
 // Puzzle 1:
-// a..z have priority 1..26
-// A..Z have priority 27..52
+// Compartment 1 = first half of the letters on a line,
+// Compartment 2 = second half of the letters on a line.
 //
 // What is the sum of the priorities of the item types that appear in both compartments?
 fn puzzle_1(input: &str) -> u64 {
@@ -76,6 +70,7 @@ mod tests {
 
     const TEST_INPUT: &str = "vJrwpWtwJgWrhcsFMMfFFhFp\njqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL\nPmmdzqPrVvPwwTWBwg\nwMqvLMZHhHMvwLHjbvcjnnSBnvTQFn\nttgJtRGJQctTZtZT\nCrZsJsPPZsGzwwsLwLmpwMDw";
 
+    #[test]
     fn day_3_ascii_to_numbers() {
         assert_eq!(ascii_to_number('a'), 1);
         assert_eq!(ascii_to_number('A'), 27);
@@ -83,10 +78,12 @@ mod tests {
         assert_eq!(ascii_to_number('Z'), 52);
     }
 
+    #[test]
     fn day_3_puzzle_1() {
         assert_eq!(puzzle_1(TEST_INPUT), 157);
     }
 
+    #[test]
     fn day_3_puzzle_2() {
         assert_eq!(puzzle_2(TEST_INPUT), 70);
     }
