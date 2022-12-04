@@ -1,9 +1,22 @@
+macro_rules! run {
+    ( $day:expr ) => {
+        match $day {
+            1 => day_1::run(),
+            2 => day_2::run(),
+            3 => day_3::run(),
+            4 => day_4::run(),
+            _ => unreachable!(),
+        }
+    };
+}
+
 use clap::{Arg, ArgAction, Command};
 use std::ops::RangeInclusive;
 
-mod day1;
-mod day2;
-mod day3;
+mod day_1;
+mod day_2;
+mod day_3;
+mod day_4;
 
 pub struct Config {
     all_days: bool,
@@ -35,10 +48,10 @@ impl Config {
 
         Ok(Config {
             all_days: matches.get_flag("AllDays"),
-            specific_day: if !matches.contains_id("SpecificDay") {
-                *Self::DAY_RANGE.end()
-            } else {
+            specific_day: if matches.contains_id("SpecificDay") {
                 *matches.get_one::<usize>("SpecificDay").unwrap()
+            } else {
+                *Self::DAY_RANGE.end()
             },
         })
     }
@@ -62,28 +75,10 @@ impl Config {
 
     pub fn run(self) -> Result<(), Box<dyn std::error::Error>> {
         if self.all_days {
-            day1::run();
-            day2::run();
-            day3::run();
-            Ok(())
+            Self::DAY_RANGE.for_each(|day| run!(day));
         } else {
-            match self.specific_day {
-                1 => {
-                    day1::run();
-                    Ok(())
-                }
-                2 => {
-                    day2::run();
-                    Ok(())
-                }
-                3 => {
-                    day3::run();
-                    Ok(())
-                }
-                err => Err(Box::<dyn std::error::Error>::from(format!(
-                    "'{err}' isn't a valid Advent of Code day for 2022!",
-                ))),
-            }
+            run!(self.specific_day);
         }
+        Ok(())
     }
 }
