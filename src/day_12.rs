@@ -1,7 +1,7 @@
 pub fn run() {
 	//let input = include_str!("input/day_12");
-	println!("{}", puzzle_1(input));
-	println!("{}", puzzle_2(input));
+	//println!("{}", puzzle_1(input));
+	//println!("{}", puzzle_2(input));
 }
 
 // 
