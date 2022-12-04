@@ -56,7 +56,7 @@ impl Config {
         })
     }
 
-    const DAY_RANGE: RangeInclusive<usize> = 1..=3;
+    const DAY_RANGE: RangeInclusive<usize> = 1..=4;
 
     fn days_in_range(s: &str) -> Result<usize, String> {
         let days: usize = s
