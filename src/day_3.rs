@@ -1,5 +1,5 @@
 pub fn run() {
-    let input = include_str!("input/day3.txt");
+    let input = include_str!("input/day_3.txt");
     println!("{}", puzzle_1(input));
     println!("{}", puzzle_2(input));
 }
