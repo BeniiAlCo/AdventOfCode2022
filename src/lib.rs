@@ -8,6 +8,7 @@ macro_rules! run {
             5 => day_5::run(),
             6 => day_6::run(),
             7 => day_7::run(),
+            8 => day_8::run(),
             _ => unreachable!(),
         }
     };
@@ -23,6 +24,7 @@ mod day_4;
 mod day_5;
 mod day_6;
 mod day_7;
+mod day_8;
 
 pub struct Config {
     all_days: bool,
@@ -62,7 +64,7 @@ impl Config {
         })
     }
 
-    const DAY_RANGE: RangeInclusive<usize> = 1..=7;
+    const DAY_RANGE: RangeInclusive<usize> = 1..=8;
 
     fn days_in_range(s: &str) -> Result<usize, String> {
         let days: usize = s
