@@ -10,6 +10,7 @@ macro_rules! run {
             7 => day_7::run(),
             8 => day_8::run(),
             9 => day_9::run(),
+            10 => day_10::run(),
             _ => unreachable!(),
         }
     };
@@ -19,6 +20,7 @@ use clap::{Arg, ArgAction, Command};
 use std::ops::RangeInclusive;
 
 mod day_1;
+mod day_10;
 mod day_2;
 mod day_3;
 mod day_4;
@@ -66,7 +68,7 @@ impl Config {
         })
     }
 
-    const DAY_RANGE: RangeInclusive<usize> = 1..=9;
+    const DAY_RANGE: RangeInclusive<usize> = 1..=10;
 
     fn days_in_range(s: &str) -> Result<usize, String> {
         let days: usize = s
