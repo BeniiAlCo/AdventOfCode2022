@@ -1,5 +1,5 @@
 pub fn run() {
-	//let input = include_str!("input/day_19");
+	//let input = include_str!("input/day_19.txt");
 	//println!("{}", puzzle_1(input));
 	//println!("{}", puzzle_2(input));
 }
@@ -28,16 +28,16 @@ mod tests {
 
 	#[test]
 	fn day_19_parse_input() {
-		assert_eq!(parse_input(TEST_INPUT), vec![0]);
+		//assert_eq!(parse_input(TEST_INPUT), vec![0]);
 	}
 
 	#[test]
 	fn day_19_puzzle_1() {
-		assert_eq!(puzzle_1(TEST_INPUT), 0);
+		//assert_eq!(puzzle_1(TEST_INPUT), 0);
 	}
 
 	#[test]
 	fn day_19_puzzle_2() {
-		assert_eq!(puzzle_2(TEST_INPUT), 0);
+		//assert_eq!(puzzle_2(TEST_INPUT), 0);
 	}
 }
